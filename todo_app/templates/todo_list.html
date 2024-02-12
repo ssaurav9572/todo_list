@@ -1,4 +1,5 @@
 <!-- todo_app/templates/todo_app/todo_list.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,21 +9,29 @@
 </head>
 <body>
     <h1>TODO List</h1>
+    <!-- Displaying the list of todos -->
     <ul>
         {% for todo in todos %}
             <li>
+                <!-- Checkbox to mark todo as completed -->
                 <input type="checkbox" {% if todo.completed %}checked{% endif %}
                        onchange="window.location.href = '{% url 'toggle_todo' todo.id %}';">
+                <!-- Displaying the todo title -->
                 {{ todo.title }}
+                <!-- Link to delete the todo -->
                 <a href="{% url 'delete_todo' todo.id %}">(Delete)</a>
             </li>
         {% endfor %}
     </ul>
+    <!-- Form to add a new todo -->
     <form method="post" action="{% url 'add_todo' %}">
         {% csrf_token %}
         <label for="title">New Todo:</label>
+        <!-- Input field for entering new todo title -->
         <input type="text" id="title" name="title" required>
+        <!-- Button to submit the new todo -->
         <button type="submit">Add</button>
     </form>
 </body>
 </html>
+
